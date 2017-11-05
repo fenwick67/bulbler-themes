@@ -1,0 +1,36 @@
+// this renders to /
+
+<!DOCTYPE html>
+html
+  head
+    title Bumbler Themes
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jenil/bulmaswatch/gh-pages/flatly/bulmaswatch.min.css" type="text/css" />
+    <meta charset="utf-8" />
+    style(type="text/css") html,body{width:100%;height:100%;margin:0;padding:0;min-height:500px;}.frame-area,body{display:flex;flex-direction:column;width:100%;height:100%}#i{flex:1 1 auto}.leBel{display:flex;justify-content:space-around;flex-wrap:wrap;margin:1rem;}.top{background:#eee}.button-block>*{margin:0.1rem}
+    meta(name="description" content="")
+  body
+    .hero
+      .container
+        .hero-body
+          .title Bumbler themes
+          p A collection of themes for the Bumbler CMS.
+    .frame-area
+      .top
+        .container
+          .leBel
+            for name in themes
+              - var anglicizedName = name.split('-').map(_.capitalize).join(' ')
+              - var description = themeInfo[name]?_.capitalize(themeInfo[name].description):"";
+              span.has-text-centered
+                div
+                  b= anglicizedName
+                  p!= description
+                  p.button-block
+                    a.m.button.is-primary(data-link='./theme-previews/'+name+'/1.html') Preview
+                    a.button.is-default(href='./themes/'+name+'.pug' download=name+".pug") Download
+
+      iframe#i(src="./theme-previews/default/1.html")
+
+    // lord forgive me for what I am about to do...
+    script(type="text/javascript") var c=document.querySelectorAll('.m');for(var i=0;i<c.length;i++){ c[i].onclick=function(){var e=document.getElementById('i');e.src=this.getAttribute('data-link');} }
+    script(type="text/javascript") var l = document.getElementById('i'); setInterval(function(){l.contentDocument.addEventListener('click',function(event){ if(event.which!=1){console.log(event.which);return true;}event.preventDefault();return false;})},1000);

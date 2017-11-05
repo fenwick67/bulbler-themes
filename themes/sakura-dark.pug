@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+html
+  head
+    title= site.title
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <link type="application/atom+xml" rel="alternate" href="/atom.xml"/>
+    <link rel="icon" type="image/png" href=site.avatar />
+    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-dark.css" type="text/css">
+    meta(name="description" content=site.description)
+  body
+
+    nav
+      h1= site.title
+      img(src=site.avatar)
+      p!= site.description
+      p Site Links: <a href="/">Home</a>, <a href="/atom.xml">Atom Feed</a>, <a href="/admin">Admin</a>
+
+      if site.tags && !page.isCustom
+        div Tags:
+          ul
+            for tagInfo in site.tags
+              li
+                a(href="/tag/"+tagInfo.name)= _.capitalize(tagInfo.name) + ' (' + tagInfo.count + ')'
+      hr
+
+    main
+      if page.posts
+        if page.posts.length == 0
+          p Sorry, this page doesn't have any posts yet :(
+        each post in page.posts
+          section
+            if post.title
+              h1= post.title
+            if post.tags
+              div Tags:
+                for tag in post.tags
+                  a(href="/tag/"+tag)= _.capitalize(tag)
+                  span &nbsp;
+            each attachment in post.assets
+              span!= attachment.widget
+            if post.caption
+              div!= post.caption
+            div Posted #{post.englishDate}
+            div
+              a(href=post.permalink) Permalink
+          hr
+
+      if page.isCustom
+        section!= page.customPage.content
+
+    // pagination
+    div
+      if page.number && (page.links.nextPage || page.links.previousPage)
+        if page.links.previousPage
+          a(href=page.links.previousPage) Previous Page
+          | &nbsp;
+        if page.number
+          if page.number >= 3
+            span
+              a(href=page.links.firstPage)= 1
+              | &nbsp;
+          if page.number >= 4
+            span &hellip;
+          if page.links.previousPage
+            span
+              a(href=page.links.previousPage)= page.number-1
+              | &nbsp;
+          span
+            a(href='#')= page.number
+            | &nbsp;
+          if page.links.nextPage
+            span
+              a(href=page.links.nextPage)= page.number + 1
+              | &nbsp;
+          if page.number < site.pageCount - 2
+            span &hellip;
+          if page.number < site.pageCount - 1
+            span
+              a(href=page.links.lastPage)= site.pageCount
+              | &nbsp;
+        if page.links.nextPage
+          a(href=page.links.nextPage) Next Page
+        <br><br>
+  footer
+    div All content ©
+      strong #{site.authorName}
+      |  #{new Date().getFullYear()}.
+    div
+      a(href="https://github.com/fenwick67/bumbler") Bumbler
+      |  flat CMS by
+      b  Drew Harwell

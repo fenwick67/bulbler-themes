@@ -14,6 +14,6 @@ console.log('Listening on :8080.  Watching...');
 
 build();
 
-['themes','templates','themeinfo.json'].forEach(function(s){
+['themes','templates','themeinfo.json','scss'].forEach(function(s){
   watch(s,build);
 })

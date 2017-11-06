@@ -8,10 +8,10 @@
   "journal":{
     "description":"a clean, airy, and bright template."
   },
-  "sakura-dark":{
-    "description":"the same as Sakura, but with a different stylesheet."
-  },
   "bootstrap":{
     "description":"a theme using good ol' <a href=\"http://getbootstrap.com/\">Bootstrap</a>."
+  },
+  "nineteen-fifteen":{
+    "description":"a master of the minimal."
   }
 }

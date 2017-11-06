@@ -2,6 +2,7 @@ var fs = require('fs-extra')
 var _ = require('lodash');
 var path = require('path');
 var pug = require('pug');
+var sass = require('node-sass');
 
 module.exports = function build(){
 
@@ -16,13 +17,20 @@ var loremIpsum = `<h1>HTML Ipsum Presents</h1>
    <li>Aliquam tincidunt mauris eu risus.</li>
 </ol>
 <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+
+<h1>Header Level 1</h1>
+<h2>Header Level 2</h2>
 <h3>Header Level 3</h3>
+<h4>Header Level 4</h4>
+<h5>Header Level 5</h5>
+<h6>Header Level 6</h6>
+
 <ul>
    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
    <li>Aliquam tincidunt mauris eu risus.</li>
 </ul>
-<pre><code>
-#header h1 a {
+<p>Try some <code>code</code> on for size!</p>
+<pre><code>#header h1 a {
   display: block;
   width: 300px;
   height: 80px;
@@ -47,7 +55,7 @@ var data = {
   },
   page:{
     posts:[{
-      title:"A post!",
+      title:"A Post!",
       id:"ABCDEFG",
       caption:'<p>These are some photos!</p>',
       tags:['math','development'],
@@ -71,6 +79,7 @@ var data = {
     {
       caption:loremIpsum,
       id:"ABCDEFH",
+      title:"Another Post",
       permalink:"#",
       date:new Date('October 10, 2017'),
       englishDate:'October 10, 2017',
@@ -99,6 +108,7 @@ var data = {
 // clone posts
 data.page.posts.push(_.cloneDeep(data.page.posts[0]));
 data.page.posts[data.page.posts.length-1].title=null;
+data.page.posts[data.page.posts.length-1].assets.push(data.page.posts[0].assets[0]);
 
 // custom page
 var data2 = _.cloneDeep(data);
@@ -165,6 +175,16 @@ themes.forEach(function(templateFilename){
 
 // now write index
 fs.writeFileSync('index.html',pug.renderFile(path.join('templates','index.pug'),{themes:themeNames,_:_,themeInfo}));
+
+//build scss
+var scssFiles = fs.readdirSync('scss');
+scssFiles.forEach(function(f){
+  var css = sass.renderSync({
+    data:fs.readFileSync(path.join('scss',f),'utf8')
+  }).css;
+  var outfile = path.join('css',f.replace('scss','css'));
+  fs.writeFileSync(outfile,css);
+})
 
 console.log('build succeeded at '+new Date().toISOString())
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+html
+  head
+    title= site.title
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <link type="application/atom+xml" rel="alternate" href="/atom.xml"/>
+    <link rel="icon" type="image/png" href=site.avatar />
+    <link rel="stylesheet" href="/css/1915.css" type="text/css">
+    meta(name="description" content=site.description)
+
+  body
+    .sidebar
+      aside
+        a.avatar(href="/")
+          img(src=site.avatar)
+      .headline
+        h1
+          a(href='#')= site.title
+        p!= site.description
+      aside.menu
+        ul
+          li
+            a(href="/") Home
+          li
+            a(href='/atom.xml') Atom Feed
+      if site.tags
+        aside.submbenu
+          h2 Tags
+          ul
+            for tagInfo in site.tags
+              li
+                a(href="/tag/"+tagInfo.name)!= tagInfo.name+' <b>('+tagInfo.count+')</b>'
+    .main
+      if page.tag
+        article
+          p You are currently reading posts tagged as&nbsp;
+            b= page.tag
+            | .
+          p <a href="/">Back to All Posts.</a>
+      if page.posts
+        for post in page.posts
+          article
+            if (post.title)
+              h1.title= post.title
+            if post.tags
+              for tag in post.tags
+                a.tag(href="/tag/"+tag)= _.capitalize(tag)
+                | &nbsp;
+            if post.englishDate
+              time= post.englishDate
+            if post.assets
+              .assets
+                for asset in post.assets
+                  div.asset!=asset.widget
+            div!= post.caption
+      if page.isCustom
+        article!= page.customPage.content
+      if page.links.nextPage || page.links.previousPage
+        .pagination
+          if page.number && site.pageCount
+            div Page <b>#{page.number}</b> of <b>#{site.pageCount}</b>.
+          if page.links.previousPage
+            a(href=page.links.previousPage).previous Previous Page
+          if page.links.nextPage
+            a(href=page.links.nextPage).next Next Page

@@ -5,7 +5,7 @@ html
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">    <meta name="viewport" content="width=device-width, initial-scale=1">
     style(type="text/css") .posts-container{max-width:800px}.hidden{display:none !important}.gallery{display:flex;text-align:center;justify-content:space-between;align-content:space-between;flex-wrap:wrap}.gallery>*,.gallery *{flex:1 1 auto; width:100%;}body,html{overflow-x:hidden}
     <meta charset="utf-8" />
-    <link type="application/atom+xml" rel="alternate" href="/atom.xml"/>
+    <link type="application/atom+xml" rel="alternate" href="/atom/feed.xml"/>
     meta(name="description" content=site.description)
   body
 
@@ -14,7 +14,7 @@ html
       a.navbar-brand(href="/")
         img.d-inline-block.align-top(src=site.avatar width="30" height="30" alt="site logo")
         | &nbsp;#{site.title}
-      a.navbar-brand(href="/atom.xml") Atom Feed
+      a.navbar-brand(href="/atom/feed.xml") Atom Feed
       a.navbar-brand.hidden(href='/admin') Admin
 
     //main

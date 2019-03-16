@@ -50,7 +50,7 @@ html
 
     // pagination
     div
-      if page.number && (page.links.nextPage || page.links.previousPage)
+      if page.number && page.links && (page.links.nextPage || page.links.previousPage)
         if page.links.previousPage
           a(href=page.links.previousPage) Previous Page
           | &nbsp;

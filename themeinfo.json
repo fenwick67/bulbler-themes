@@ -15,6 +15,6 @@
     "description":"a master of the minimal."
   },
   "tilt":{
-    "description":"fancy. Note: doesn't include images in post bodies by default."
+    "description":"fancy, with hero images for featured images."
   }
 }

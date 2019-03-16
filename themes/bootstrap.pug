@@ -116,4 +116,4 @@ html
           b  Drew Harwell
 
   // unhide stuff if user might be an admin
-  script(type="text/javascript")!= "document.addEventListener('DOMContentLoaded',function(){if(!localStorage['admin']){return;}var els = document.querySelectorAll('.hidden');  if (!els){return};  for (var i = 0; i < els.length; i ++){els[i].classList.remove('hidden')}});"
+script(type="text/javascript")!= "document.addEventListener('DOMContentLoaded',function(){if(!localStorage['admin']){return;}var els = document.querySelectorAll('.hidden');  if (!els){return};  for (var i = 0; i < els.length; i ++){els[i].classList.remove('hidden')}});"

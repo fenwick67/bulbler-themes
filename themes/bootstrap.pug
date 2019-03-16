@@ -66,7 +66,7 @@ html
                       a(href='/admin/#post/edit?id='+post.id).card-link.hidden Edit
                     footer.card-footer.text-muted.dt-published #{post.englishDate}
 
-              if page.tag && !page.links.nextPage
+              if page.tag && (!page.links || !page.links.nextPage)
                 .post.my-3
                   .section.card
                     p.card-body That's all for this tag. <a href="/">Back to all posts?</a>
@@ -81,7 +81,7 @@ html
       // pagination
       .container.my-3
         nav(aria-label="Page navigation")
-          if page.number && (page.links.nextPage || page.links.previousPage)
+          if page.number && page.links && (page.links.nextPage || page.links.previousPage)
             ul.pagination.justify-content-center
               if page.number >= 3
                 li.page-item
@@ -116,4 +116,4 @@ html
           b  Drew Harwell
 
   // unhide stuff if user might be an admin
-  script(type="text/javascript")!= "document.addEventListener('DOMContentLoaded',function(){if(!localStorage['admin']){return;}var els = document.querySelectorAll('.hidden');  if (!els){return};  for (var i = 0; i < els.length; i ++){els[i].classList.remove('hidden')}});"
+script(type="text/javascript")!= "document.addEventListener('DOMContentLoaded',function(){if(!localStorage['admin']){return;}var els = document.querySelectorAll('.hidden');  if (!els){return};  for (var i = 0; i < els.length; i ++){els[i].classList.remove('hidden')}});"

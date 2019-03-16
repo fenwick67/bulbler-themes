@@ -146,15 +146,17 @@ data3.page.posts.map(function(post){
 // single post page
 var data4 = _.cloneDeep(data);
 data4.page.isIndex = false;
+data4.page.posts[0].assets.push(data4.page.posts[1].assets[0]);
 data4.page.posts = [data4.page.posts[0]];
 delete data4.page.number;
 data4.page.posts[0].assets[1].inline=true;
-data4.page.posts[0].caption = `<p>This image is directly in the post content:</p>
+data4.page.posts[0].caption = `
+<p>The bird is a featured, non-inlined asset.</p>
+<p>The bokeh circles are a non-featured, non-inlined asset.</p>
+<p>Themes can handle asset rendering logic as they wish.</p>
+<p>This image is directly in the post content:</p>
 <a class="asset"><img src="../../placeholders/asset-3.jpg"></img></a>
-<p>The bird is an asset as well. but wasn't inlined in the post body.</p>
-<p>Themes can handle non-inlined assets as they wish.</p>
-<a class="asset"><img src="../../placeholders/asset-3.jpg"></img></a>
-<p>There it is again.</p>
+<p>Now for some HTML.</p>
 ${loremIpsum}`;
 
 var pageDatum = [data,data2,data3,data4];

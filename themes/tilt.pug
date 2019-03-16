@@ -221,7 +221,7 @@ html
         .readable
           .section
             if post.assets
-              - var assetBlock = ''; post.assets.forEach(a=>{if (!a.inline) {assetBlock+=a.widget}})
+              - var assetBlock = ''; post.assets.forEach(a=>{if (!a.inline && !a.featured) {assetBlock+=a.widget}})
               .content!= assetBlock
             if post.caption
               .content!= post.caption

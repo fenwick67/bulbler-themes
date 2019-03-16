@@ -55,7 +55,7 @@ html
             div!= post.caption
       if page.isCustom
         article!= page.customPage.content
-      if page.links.nextPage || page.links.previousPage
+      if page.links && page.links.nextPage || page.links.previousPage
         .pagination
           if page.number && site.pageCount
             div Page <b>#{page.number}</b> of <b>#{site.pageCount}</b>.

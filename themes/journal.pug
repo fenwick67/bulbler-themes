@@ -76,7 +76,7 @@ html
       // pagination
       .container.section
         .pagination
-          if page.number && (page.links.nextPage || page.links.previousPage)
+          if page.number && page.links && (page.links.nextPage || page.links.previousPage)
             a(href=page.links.previousPage disabled=!page.links.previousPage).pagination-previous.button Previous
             a(href=page.links.nextPage disabled=!page.links.nextPage).pagination-next.button Next page
             if page.number

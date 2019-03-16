@@ -36,7 +36,7 @@ html
                 for tag in post.tags
                   a(href="/tag/"+tag)= _.capitalize(tag)
                   span &nbsp;
-            each attachment in post.assets
+            each attachment in post.assets.filter(a=>!a.inline)
               span!= attachment.widget
             if post.caption
               div!= post.caption
@@ -50,7 +50,7 @@ html
 
     // pagination
     div
-      if page.number && (page.links.nextPage || page.links.previousPage)
+      if page.number && page.links && (page.links.nextPage || page.links.previousPage)
         if page.links.previousPage
           a(href=page.links.previousPage) Previous Page
           | &nbsp;

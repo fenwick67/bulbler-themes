@@ -65,30 +65,35 @@ var data = {
       assets:[
         {
           type:"image",
-          widget:'<img src="../../placeholders/asset-1.jpg"></img>',
+          widget:'<a class="asset"><img src="../../placeholders/asset-2.jpg"></img></a>',
           mimetype:"image/jpeg",
-          href:"#"
+          href:"../../placeholders/asset-2.jpg",
+          featured:true,
+          inline:false
         },{
           type:"image",
-          widget:'<img src="../../placeholders/asset-2.jpg"></img>',
+          widget:'<a class="asset"><img src="../../placeholders/asset-3.jpg"></img></a>',
           mimetype:"image/jpeg",
-          href:"#"
+          href:"../../placeholders/asset-3.jpg",
+          featured:false,
+          inline:false
         },
       ],
     },
     {
       caption:loremIpsum,
       id:"ABCDEFH",
-      title:"Another Post",
       permalink:"#",
       date:new Date('October 10, 2017'),
       englishDate:'October 10, 2017',
       assets:[
         {
           type:"image",
-          widget:'<img src="../../placeholders/asset-1.jpg"></img>',
+          widget:'<a class="asset"><img src="../../placeholders/asset-1.jpg"></img></a>',
           mimetype:"image/jpeg",
-          href:"#"
+          href:"../../placeholders/asset-1.jpg",
+          featured:false,
+          inline:false
         }
       ],
     }],
@@ -101,14 +106,17 @@ var data = {
       previousPage:null,
       firstPage:"#",
       lastPage:"#"
-    }
+    },
+    url:"https://example.com"
   }
 };
 
 // clone posts
-data.page.posts.push(_.cloneDeep(data.page.posts[0]));
-data.page.posts[data.page.posts.length-1].title=null;
-data.page.posts[data.page.posts.length-1].assets.push(data.page.posts[0].assets[0]);
+for (var i = 0; i < 4; i ++){
+  data.page.posts.push(_.cloneDeep(data.page.posts[0]));
+  data.page.posts[data.page.posts.length-1].title='Another post!';
+  data.page.posts[data.page.posts.length-1].assets.push(data.page.posts[0].assets[0]);
+}
 
 // custom page
 var data2 = _.cloneDeep(data);
@@ -117,14 +125,14 @@ data2.page.isCustom = true;
 data2.page.isIndex = false;
 data2.page.links = {};
 data2.page.customPage = {
-  title:"Custom",
+  title:"Custom Page",
   content:"<p>This is some custom content for the page!</p><p>"+lorem+"</p>"
 };
 
-// also test last page of a tag
+// also test a page of a tag
 var data3 = _.cloneDeep(data);
-data3.page.number = 10;
-data3.page.links.nextPage = null;
+data3.page.number = 5;
+data3.page.links.nextPage = '#';
 data3.page.isIndex = false;
 data3.page.tag = "math";
 data3.page.links.previousPage="#";
@@ -135,7 +143,26 @@ data3.page.posts.map(function(post){
   return post;
 });
 
-var pageDataum = [data,data2,data3];
+// single post page
+var data4 = _.cloneDeep(data);
+data4.page.isIndex = false;
+data4.page.posts = [data4.page.posts[0]];
+delete data4.page.number;
+data4.page.posts[0].assets[1].inline=true;
+data4.page.posts[0].caption = `<p>This image is directly in the post content:</p>
+<a class="asset"><img src="../../placeholders/asset-3.jpg"></img></a>
+<p>The bird is an asset as well. but wasn't inlined in the post body.</p>
+<p>Themes can handle non-inlined assets as they wish.</p>
+<a class="asset"><img src="../../placeholders/asset-3.jpg"></img></a>
+<p>There it is again.</p>
+${loremIpsum}`;
+
+var pageDatum = [data,data2,data3,data4];
+
+pageDatum.forEach(data=>{
+  if (!data.posts){return}
+  data.posts.forEach(p=>p.content = p.caption)
+})
 
 var themes = _.orderBy(
   _.filter(fs.readdirSync('themes'),
@@ -155,7 +182,7 @@ themes.forEach(function(templateFilename){
   var templateFn = pug.compileFile(path.join('themes',templateFilename));
   fs.ensureDirSync(path.join('theme-previews',name));
   var anglicizedName = name.split('-').map(_.capitalize).join(' ')
-  pageDataum.forEach(function(pageData,index){
+  pageDatum.forEach(function(pageData,index){
     // write each page
     var locals = _.cloneDeep(pageData);
     locals.site.title = anglicizedName + ' Theme';
@@ -168,7 +195,7 @@ themes.forEach(function(templateFilename){
   // write an index for this theme, which has iframes to each page
   fs.writeFileSync(
     path.join('theme-previews',name,'index.html'),
-    themeCompiledFn( { theme:name,_:_, urls:pageDataum.map(function(n,idx){return './' + (idx+1)}) })
+    themeCompiledFn( { theme:name,_:_, urls:pageDatum.map(function(n,idx){return './' + (idx+1)}) })
   )
 
 });

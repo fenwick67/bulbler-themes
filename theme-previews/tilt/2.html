@@ -1,0 +1,145 @@
+<!DOCTYPE html><html><head><title>Tilt Theme - Custom Page</title><link rel="stylesheet" href="https://unpkg.com/bulmaswatch/cyborg/bulmaswatch.min.css" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<link type="application/atom+xml" rel="alternate" href="/atom/feed.xml"/><meta name="description" content="Tilt is fancy. Note: doesn't include images in post bodies by default."/><style type="text/css">
+:root,.navbar,.navbar-menu{
+  background:#1b1b1b !important;
+} 
+.hero,.post-tile{ 
+  position:relative;
+  overflow:hidden;
+  --tp: rgba(0,0,0,0.1);
+  --wht: rgba(0,0,0,0.3);
+  background:linear-gradient(0, var(--tp), var(--wht), var(--wht), var(--tp));
+}
+.post-tile>.content{  
+  padding:9rem 3rem 1rem 1rem;
+  z-index:5;
+}
+.hero{
+  position:relative;
+  overflow:hidden;
+}
+.hero .title{
+  font-size:3.5rem;
+}
+.hero .subtitle{
+  font-size:2rem;
+}
+.hero>.hero-image,.post-tile>.tile-bg{
+  width:100%;
+  height:100%;
+  object-fit:cover;  
+  position:absolute;
+  z-index:-1;
+}
+.post-tile,.button,.pagination-next,.pagination-previous,.pagination-link,.input,.tag{ 
+  transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  box-shadow:0 0 0px 0px rgba(0,0,0,0.9);
+  border:solid 2px transparent !important;
+}
+.post-tile:hover>.tile-bg{
+  transform:scale(1.07);
+}
+.post-tile>.tile-bg{
+  transform:scale(1);
+  transition: transform 0.2s ease-in-out;
+  height:100%;
+}
+.post-tile:hover,.button:hover,.pagination-next:hover,.pagination-previous:hover,.pagination-link:hover,.tag:hover,
+.post-tile:active,.button:active,.pagination-next:active,.pagination-previous:active,.pagination-link:active,.tag:active,
+.post-tile:focus,.button:focus,.pagination-next:focus,.pagination-previous:focus,.pagination-link:focus,.tag:focus
+{
+  box-shadow:0 3px 10px 0px rgba(0,0,0,0.9);
+  border:solid 2px rgba(255,255,255,0.3) !important;
+  text-decoration:none !important;
+}
+.button.is-warning:hover,.button.is-warning:active{
+  border-color:hsl(48, 100%, 95%) !important;
+}
+.post-tile time{
+  display:inline-block;
+  padding:0.3rem 0;
+  border-bottom:solid 3px rgba(255,255,255,0.3);
+}
+.post-tile .title{
+  padding:0.7rem 0;
+}
+.tile-bg.tile-bg-empty{
+  z-index:-1;
+  background:#363636;
+}
+.pagination-link,.pagination-previous,.pagination-next{
+  color:#fff;
+}
+.button,.pagination-next,.pagination-previous,.pagination-link,.tag{
+  background:#363636;
+}
+.button,.pagination-next,.pagination-previous,.pagination-link,.input,.tag{
+  border-radius:0 !important;
+}
+.readable{
+  font-size:1.1rem;
+}
+.readable .section{
+  padding:0 1.5em 1.5em 1.5em;
+}
+.readable p,.readable code,.readable blockquote,.readable pre{
+}
+.readable .content{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:30vh;
+}
+.readable .content>*{
+  display:block;
+  text-align:start;
+  width:100%;
+  max-width:40rem;
+}
+.readable .content img, .readable .content video, .readable .content .asset, .readable .content .asset>img{
+  width:47rem;
+  max-width:100vw;
+}
+.content>img, .content>video, .content>audio, .content>a>img{
+  margin:1rem 0 2em 0;    
+  box-shadow:0 3px 10px 0px rgba(0,0,0,0.9);
+}
+hr.small-rule{
+  background:transparent;
+  position:relative;
+  border-width:none;
+  margin:3rem;
+}
+hr.small-rule::after{
+  content:'';
+  display:block;
+  position: absolute;
+  top:0;
+  left: 50%;
+  transform: translateX(-50%);
+  width:50%;
+  max-width:10rem;
+  border-bottom-color:inherit;
+  border-bottom-width: 3px;
+  border-color: inherit;
+  border-bottom-width: 3px;
+  height: inherit;
+  border-bottom-style: solid;
+}
+</style></head><body><div class="hero is-small"><img class="hero-image" src="../../placeholders/avatar.png"/><div class="hero-body"><div class="container"><div class="section has-text-centered"><div class="title">Custom Page</div><div class="subtitle"></div></div></div></div></div><hr class="small-rule"/><div class="container"><div class="readable"><div class="section"><div class="content"><p>This is some custom content for the page!</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et mollis nunc, non mollis lacus. Donec pharetra lacus at mauris pulvinar, vestibulum lacinia ligula viverra. Curabitur semper lobortis nulla non efficitur. Aliquam cursus non tortor vitae mattis. Proin sagittis elit sed risus rutrum, sed pulvinar neque lacinia. Donec ac dui aliquam, placerat ligula et, imperdiet nunc. Donec vulputate massa non dui fermentum, nec rhoncus lorem feugiat. Nulla vitae augue quis lectus lacinia fermentum at ac ex. Cras ac mauris et mi dictum pretium at non felis. Aenean lobortis metus in ante pellentesque, mattis aliquam ex accumsan. Nunc ut vehicula augue. Donec sed cursus erat. </p></div></div></div></div><hr class="small-rule"/><div class="hero is-dark"> <div class="hero-body"><div class="container">       <div class="tile is-ancestor"><div class="tile is-parent"><div class="tile is-child"><div class="has-text-centered"><p>All content ©<strong>Your Name</strong> 2019.</p></div></div></div></div><div class="tile is-ancestor"><div class="tile is-parent"><div class="tile is-child has-text-centered"><div class="content"><p><strong>Contact:</strong></p><p><a href="#">Fill</a></p><p><a href="#">Out</a></p><p><a href="#">Yourself</a></p></div></div></div><div class="tile is-parent"><div class="tile is-child"></div></div><div class="tile is-parent"><div class="tile is-child"><div class="content has-text-centered"><p> <a>&nbsp;</a></p><p><a class="button is-small share-button is-primary"><strong class="icon">➦&#xFE0E;</strong><span>Share This Page</span></a></p><p>             <a class="button is-small is-warning" href="/atom/feed.xml" title="rss"> <strong class="icon">⚡&#xFE0E;</strong><span>RSS</span></a></p><p> <a class="button is-small" href="/admin"><strong class="icon">🔒&#xFE0E;</strong><span>Admin</span></a></p></div></div></div></div></div></div></div><div class="modal" id="share-modal"><div class="modal-background"></div><div class="modal-content"><div class="card"><div class="card-header">       <h1 class="card-header-title">Share To...</h1></div><div class="card-content"><div class="buttons"><a class="button is-link" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fexample.com">Facebook</a><a class="button is-danger" target="_blank" href="https://plus.google.com/share?url=https%3A%2F%2Fexample.com">Google +</a><a class="button is-primary" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fexample.com">Twitter</a></div><div class="control"><label class="label">URL:</label><input class="input" id="url-box" type="text" value="https://example.com"/></div></div></div></div><div class="modal-close"></div></div><script type="text/javascript">
+document.addEventListener('DOMContentLoaded',function(){  
+  var shareModal = document.getElementById('share-modal');  
+  ['.share-button','#share-modal .modal-background','#share-modal .modal-close'].forEach(s=>{
+    var elems = document.querySelectorAll(s)
+    if (!elems){return}
+    for (var i = 0; i < elems.length; i ++){
+      elems[i].addEventListener('click',toggleModal)
+    }
+  })          
+  function toggleModal(){
+    shareModal.classList.toggle('is-active')
+  }
+})
+</script></body></html>

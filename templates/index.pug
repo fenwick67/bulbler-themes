@@ -26,8 +26,10 @@ html
                   b= anglicizedName
                   p!= description
                   p.button-block
-                    a.m.button.is-primary(data-link='./theme-previews/'+name+'/1.html') Preview
-                    a.m.button.is-primary(data-link='./theme-previews/'+name+'/index.html') Preview All Pages
+                    a.m.button.is-primary(data-link='./theme-previews/'+name+'/1.html') Home
+                    a.m.button.is-primary(data-link='./theme-previews/'+name+'/2.html') Custom Page
+                    a.m.button.is-primary(data-link='./theme-previews/'+name+'/3.html') Tag Page
+                    a.m.button.is-primary(data-link='./theme-previews/'+name+'/4.html') Post Page
                     a.button.is-default(href='./themes/'+name+'.pug' download=name+".pug") Download
 
       iframe#i(src="./theme-previews/default/1.html")

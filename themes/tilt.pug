@@ -1,0 +1,340 @@
+- 
+  var css = `
+  :root,.navbar,.navbar-menu{
+    background:#1b1b1b !important;
+  } 
+  .hero,.post-tile{ 
+    position:relative;
+    overflow:hidden;
+    --tp: rgba(0,0,0,0.1);
+    --wht: rgba(0,0,0,0.3);
+    background:linear-gradient(0, var(--tp), var(--wht), var(--wht), var(--tp));
+  }
+  .post-tile>.content{  
+    padding:9rem 3rem 1rem 1rem;
+    z-index:5;
+  }
+  .hero{
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .title{
+    font-size:3.5rem;
+  }
+  .hero .subtitle{
+    font-size:2rem;
+  }
+  .hero>.hero-image,.post-tile>.tile-bg{
+    width:100%;
+    height:100%;
+    object-fit:cover;  
+    position:absolute;
+    z-index:-1;
+  }
+  .post-tile,.button,.pagination-next,.pagination-previous,.pagination-link,.input,.tag{ 
+    transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow:0 0 0px 0px rgba(0,0,0,0.9);
+    border:solid 2px transparent !important;
+  }
+  .post-tile:hover>.tile-bg{
+    transform:scale(1.07);
+  }
+  .post-tile>.tile-bg{
+    transform:scale(1);
+    transition: transform 0.2s ease-in-out;
+    height:100%;
+  }
+  .post-tile:hover,.button:hover,.pagination-next:hover,.pagination-previous:hover,.pagination-link:hover,.tag:hover,
+  .post-tile:active,.button:active,.pagination-next:active,.pagination-previous:active,.pagination-link:active,.tag:active,
+  .post-tile:focus,.button:focus,.pagination-next:focus,.pagination-previous:focus,.pagination-link:focus,.tag:focus
+  {
+    box-shadow:0 3px 10px 0px rgba(0,0,0,0.9);
+    border:solid 2px rgba(255,255,255,0.3) !important;
+    text-decoration:none !important;
+  }
+  .button.is-warning:hover,.button.is-warning:active{
+    border-color:hsl(48, 100%, 95%) !important;
+  }
+  .post-tile time{
+    display:inline-block;
+    padding:0.3rem 0;
+    border-bottom:solid 3px rgba(255,255,255,0.3);
+  }
+  .post-tile .title{
+    padding:0.7rem 0;
+  }
+  .tile-bg.tile-bg-empty{
+    z-index:-1;
+    background:#363636;
+  }
+  .pagination-link,.pagination-previous,.pagination-next{
+    color:#fff;
+  }
+  .button,.pagination-next,.pagination-previous,.pagination-link,.tag{
+    background:#363636;
+  }
+  .button,.pagination-next,.pagination-previous,.pagination-link,.input,.tag{
+    border-radius:0 !important;
+  }
+  .readable{
+    font-size:1.1rem;
+  }
+  .readable .section{
+    padding:0 1.5em 1.5em 1.5em;
+  }
+  .readable p,.readable code,.readable blockquote,.readable pre{
+  }
+  .readable .content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-height:30vh;
+  }
+  .readable .content>*{
+    display:block;
+    text-align:start;
+    width:100%;
+    max-width:40rem;
+  }
+  .readable .content img, .readable .content video, .readable .content .asset, .readable .content .asset>img{
+    width:47rem;
+    max-width:100vw;
+  }
+  .content>img, .content>video, .content>audio, .content>a>img{
+    margin:1rem 0 2em 0;    
+    box-shadow:0 3px 10px 0px rgba(0,0,0,0.9);
+  }
+  hr.small-rule{
+    background:transparent;
+    position:relative;
+    border-width:none;
+    margin:3rem;
+  }
+  hr.small-rule::after{
+    content:'';
+    display:block;
+    position: absolute;
+    top:0;
+    left: 50%;
+    transform: translateX(-50%);
+    width:50%;
+    max-width:10rem;
+    border-bottom-color:inherit;
+    border-bottom-width: 3px;
+    border-color: inherit;
+    border-bottom-width: 3px;
+    height: inherit;
+    border-bottom-style: solid;
+  }
+  `
+- 
+  var js = `
+  document.addEventListener('DOMContentLoaded',function(){  
+    var shareModal = document.getElementById('share-modal');  
+    ['.share-button','#share-modal .modal-background','#share-modal .modal-close'].forEach(s=>{
+      var elems = document.querySelectorAll(s)
+      if (!elems){return}
+      for (var i = 0; i < elems.length; i ++){
+        elems[i].addEventListener('click',toggleModal)
+      }
+    })          
+    function toggleModal(){
+      shareModal.classList.toggle('is-active')
+    }
+  })
+  `
+
+<!DOCTYPE html>
+html
+  head
+    title= site.title + (page.isCustom?(' - '+page.customPage.title):"") + (page.tag?' - '+_.capitalize(page.tag):'')+ (page.isIndex?' - Home':'')
+    <link rel="stylesheet" href="https://unpkg.com/bulmaswatch/cyborg/bulmaswatch.min.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <link type="application/atom+xml" rel="alternate" href="/atom/feed.xml"/>
+    meta(name="description" content=site.description)
+    style(type="text/css")!= css      
+
+  body
+                
+    - // check out banner, Michael!
+    - 
+      var heroSrc = site.avatar;
+      var heroClass = 'hero is-medium';
+      var heroTitle = site.title;
+      var heroSubtitle = site.description;
+      
+      if (!page.isIndex){
+        heroClass = 'hero is-small'        
+      }
+      if (page.posts && page.posts.length == 1 && page.posts[0].assets){
+        heroTitle = page.posts[0].title || site.title;
+        heroSubtitle = '';
+        var postImage = page.posts[0].assets.find(a=>a.type="image" && a.featured)
+        if (postImage){// use this image for the hero
+          heroSrc = postImage.href;
+          heroClass = 'hero is-large'
+        }
+      }
+      if (page.isCustom && page.customPage.title){
+        heroTitle = page.customPage.title;
+        heroSubtitle = '';
+        heroClass = 'hero is-small';
+      }
+    div(class=heroClass)
+      img.hero-image(src=heroSrc)
+      .hero-body
+        .container
+          .section.has-text-centered
+            .title= heroTitle
+            .subtitle= heroSubtitle
+    
+    - // tiles
+    if page.posts && page.posts.length > 1
+      .container
+        .section
+          if page.tag
+            h1.title Posts with the #{_.capitalize(page.tag)} tag:
+          - var postIndex = -1;
+            while postIndex < page.posts.length
+              .tile.is-ancestor
+                - for (var i = 0; i < ((postIndex<=0)?1:((postIndex%5==2)?2:3)); i ++)
+                  - postIndex ++
+                    if (page.posts[postIndex])
+                      - post = page.posts[postIndex]
+                      .tile.is-parent
+                        a.tile.is-child.post-tile(href=post.permalink)
+                          - var postImage = post.assets.find(a=>a.type="image" && a.featured) || post.assets.find(a=>a.type="image")
+                          if postImage
+                            img.tile-bg(src=postImage.href)
+                          else
+                            .tile-bg.tile-bg-empty
+                          .content                    
+                            time.has-text-white= post.englishDate
+                            .title= post.title
+    
+    - // an actual post
+    if page.posts && page.posts.length == 1
+      - var post = page.posts[0]
+      hr.small-rule
+      .container
+        .readable
+          .section
+            if post.assets
+              - var assetBlock = ''; post.assets.forEach(a=>{if (!a.inline) {assetBlock+=a.widget}})
+              .content!= assetBlock
+            if post.caption
+              .content!= post.caption
+            .level
+              .level-left
+                .level-item
+                  div.field.is-grouped
+                    p.control Posted on&nbsp;
+                      strong.dt-published= post.englishDate
+                      if post.tags && post.tags.length
+                        | &nbsp;in
+                if post.tags && post.tags.length
+                  .level-item
+                    .buttons
+                      for tag in post.tags
+                          a(href="/tag/"+tag).button.is-dark= _.capitalize(tag)
+              .level-right
+                .level-item
+                  a.button.is-large.share-button.is-primary
+                    strong.icon ➦&#xFE0E;
+                    span Share
+                    
+    - // custom page
+    if page.isCustom
+        hr.small-rule
+        .container
+          .readable
+            .section
+              .content!= page.customPage.content
+        hr.small-rule
+    
+    - // pagination
+    if page.number && page.links && (page.links.nextPage || page.links.previousPage)
+      .container
+        .section
+          .pagination
+            a(href=page.links.previousPage disabled=!page.links.previousPage).pagination-previous.button Previous page
+            a(href=page.links.nextPage disabled=!page.links.nextPage).pagination-next.button Next page
+          
+    - // tags
+    if site.tags && site.tags.length && !page.isCustom
+      hr.small-rule
+
+      .container
+        .section
+          .level
+            .level-left
+              .level-item
+                div.field.is-grouped
+                  p.control Post categories:
+              .level-item
+                .buttons
+                  for tag in site.tags
+                      a(href="/tag/"+tag).button.is-dark= _.capitalize(tag.name)
+                                      
+    - //footer          
+    .hero.is-dark 
+      .hero-body
+        .container        
+          .tile.is-ancestor
+            .tile.is-parent
+              .tile.is-child
+                div.has-text-centered
+                  p All content ©
+                    strong #{site.authorName}
+                    |  #{new Date().getFullYear()}.
+          .tile.is-ancestor
+            .tile.is-parent
+              .tile.is-child.has-text-centered
+                .content
+                  p
+                    strong Contact:
+                  p
+                    a(href="#") Fill
+                  p
+                    a(href="#") Out
+                  p
+                    a(href="#") Yourself
+            .tile.is-parent
+              .tile.is-child
+            .tile.is-parent
+              .tile.is-child
+                .content.has-text-centered
+                  p 
+                    a &nbsp;
+                  p
+                    a.button.is-small.share-button.is-primary
+                      strong.icon ➦&#xFE0E;
+                      span Share This Page
+                  p              
+                    a.button.is-small.is-warning(href="/atom/feed.xml",title="rss") 
+                      strong.icon ⚡&#xFE0E;
+                      span RSS
+                  p 
+                    a.button.is-small(href="/admin")
+                      strong.icon 🔒&#xFE0E;
+                      span Admin
+            
+            
+    .modal#share-modal
+      .modal-background
+      .modal-content
+        .card
+          .card-header        
+            h1.card-header-title Share To...
+          .card-content
+            .buttons
+              a.button.is-link(target="_blank",href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(page.url)) Facebook
+              a.button.is-danger(target="_blank",href="https://plus.google.com/share?url="+encodeURIComponent(page.url)) Google +
+              a.button.is-primary(target="_blank",href="https://twitter.com/share?url="+encodeURIComponent(page.url)) Twitter
+            .control
+              label.label URL:
+              input.input#url-box(type="text" value=page.url)
+      .modal-close
+        
+    script(type="text/javascript")!= js

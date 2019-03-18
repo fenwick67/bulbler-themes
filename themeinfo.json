@@ -16,5 +16,8 @@
   },
   "tilt":{
     "description":"fancy, with hero images for featured images."
+  },
+  "tumble":{
+    "description":"Everything's a tile! More tiles load in as you scroll. Inspired by Tumblr themes."
   }
 }

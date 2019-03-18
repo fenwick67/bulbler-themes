@@ -41,6 +41,7 @@ var themeInfo = JSON.parse(fs.readFileSync('themeinfo.json','utf8'))
 
 var data = {
   _:_,
+  linkTo:function(){return '#'},
   site:{
     authorName:"Your Name",
     title:"Site Title",

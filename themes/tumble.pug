@@ -1,0 +1,265 @@
+- 
+  var css = `
+  html,body{
+    background:#fcfcfc;
+  }
+  body {
+    font-family: sans-serif;
+    line-height: 1.4;
+    padding: 0;
+    width:100%;
+    margin: 0 auto;
+  }
+  .section{
+    margin:1rem;
+  }
+  .grid {
+    margin:0 auto;
+  }
+  /* clearfix */
+  .grid:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  /* reveal grid after images loaded */
+  .grid.are-images-unloaded {
+    opacity: 0;
+  }
+
+  .grid__item,
+  .grid__col-sizer {
+    width: 300px;
+  }
+
+  /* hide by default */
+  .grid.are-images-unloaded .image-grid__item {
+    opacity: 0;
+  }
+
+  .grid__item {
+    margin-bottom: 20px;
+    float: left;
+  }
+  .grid__item img {
+    display: block;
+    width: 100%;
+  }
+
+
+  .page-load-status {
+    display: none; /* hidden by default */
+    padding-top: 20px;
+    border-top: 1px solid #DDD;
+    text-align: center;
+    color: #777;
+  }
+  .link-footer{
+    display:block;
+    padding-top:20px;
+    color: #777;
+  }
+  .link-footer>*{
+    margin:1em;
+  }
+
+  .btn.view-more-button{
+    display:block;
+    margin:0 auto;
+    padding-left:100px;
+    padding-right:100px;
+  }
+  .single-post{
+    margin:0 auto;
+    display:block;
+    max-width:800px;
+  }
+  .single-post .asset{
+    display:block;
+    margin:0 auto;
+  }
+  body .card{
+    box-shadow: 0 .25rem 1rem rgba(48,55,66,.15);
+    border:0;
+  }
+
+  .grid .card .card-body{
+    max-height:600px;
+    overflow:hidden;
+  }
+
+  .asset *{
+    object-fit:cover;
+    max-width:100%;
+  }
+
+  `
+- 
+  var js = `
+
+  var grid = document.querySelector('.grid');
+
+  var msnry = new Masonry( grid, {
+    itemSelector: 'none', // select none at first
+    columnWidth: '.grid__col-sizer',
+    fitWidth: true,
+    stagger: 20,
+    gutter:20,
+    // nicer reveal transition
+    visibleStyle: { transform: 'translateY(0)', opacity: 1 },
+    hiddenStyle: { transform: 'translateY(100px)', opacity: 0 },
+  });
+
+
+  // initial items reveal
+  imagesLoaded( grid, function() {
+    grid.classList.remove('are-images-unloaded');
+    msnry.options.itemSelector = '.grid__item';
+    var items = grid.querySelectorAll('.grid__item');
+    msnry.appended( items );
+  });
+
+  var infScroll = new InfiniteScroll( grid, {
+    path:'.pagination__next',
+    append: '.grid__item',
+    outlayer: msnry,
+    status: '.page-load-status',
+    prefill: true,
+    button: '.view-more-button',
+    hideNav: '.pagination'
+  });
+
+  `
+
+<!DOCTYPE html>
+head
+  title= site.title
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+
+  style!= css
+  noscript
+    <style>  .grid.are-images-unloaded {opacity: 1 !important;}</style>
+body
+
+  .section
+    h1.h1.text-center
+      a(href="/")
+        span= site.title
+    if page.tag && page.number == 1
+      h5.h5.text-center viewing posts tagged&nbsp;
+        b= page.tag
+        | .
+    if page.number && page.number > 1
+      h5.h5.text-center
+        span you're on page&nbsp;
+        b= page.number
+        if page.tag
+          span &nbsp;in posts tagged&nbsp;
+          b= page.tag
+        span ,&nbsp;
+        a(href=page.tag?linkTo('tag',page.tag):'/') go to page 1?
+  
+  if page.posts && page.number
+
+    div.grid.are-images-unloaded
+      div.grid__col-sizer
+      div.grid__gutter-sizer
+      if page.number == 1 && !page.tag
+        // About tile
+        .grid__item.card
+          .card-image
+            img(src=site.avatar)
+          .card-header
+            .card-title.h4 About
+          .card-body!= site.description
+        // Tags tile
+        if site.tags && site.tags.length > 0
+          .grid__item.card
+            .card-header
+              .card-title.h4 All Tags
+            .card-body
+              p
+                each tag in site.tags
+                  a.btn.btn-primary.badge.ml-2(data-badge=tag.count, href=linkTo('tag',tag.name))= tag.name
+                
+      each post in page.posts
+        - var a= post.assets.find(a=>{return a.type=='image' && a.featured}) || post.assets.find(a=>{return a.type=='image'}) || null
+        - var w = a?a.widget:'';
+        div.grid__item.card
+          if w
+            a.card-image(href=post.permalink)!= w
+          if post.title
+            .card-header
+              .card-title.h4= post.title
+          if post.caption
+            .card-body
+              p!= post.caption          
+          if !w
+            .card-footer
+              if !w
+                a.btn(href=post.permalink) Permalink
+          if post.tags && post.tags.length
+            .card-footer 
+                span.text-gray tags:&nbsp
+                each tag in post.tags
+                  .chip= tag
+    .section
+      .btn-group.btn-group-block
+        button.view-more-button.btn.btn-lg Load More
+            
+    .page-load-status
+      <div class="loader-ellips infinite-scroll-request">&hellip;</div>
+      <p class="infinite-scroll-last">End of content</p>
+      <p class="infinite-scroll-error">No more pages to load</p>
+    
+  if !page.number && page.posts && page.posts.length == 1
+    .section
+      .card.single-post
+        .card-body
+          if page.posts[0].title
+            .h1= page.posts[0].title
+          each asset in page.posts[0].assets
+            div!= asset.widget
+          if page.posts[0].assets && page.posts[0].caption
+            br
+          div!= page.posts[0].caption
+        if page.posts[0].tags && page.posts[0].tags.length
+          .card-footer 
+                span.text-gray tags:&nbsp
+                each tag in page.posts[0].tags
+                  .chip= tag
+
+  if page.isCustom
+    .section
+      .card.single-post
+        .card-body
+          .h1= page.customPage.title
+          br
+          div!= page.customPage.content        
+
+  .link-footer.section.pagination
+    .btn-group(style="margin:0 auto;")
+      
+      a.btn(href="/") Home
+      if page.links
+        if page.links.previousPage
+          a.btn.pagination__previous(href=page.links.previousPage) Previous
+        if page.links.nextPage
+          a.btn.pagination__next(href=page.links.nextPage) Next
+  br
+  .section
+    | Everything &#169;&nbsp;
+    span= new Date().getFullYear()
+    | &nbsp;
+    span= site.authorName
+    br
+    a(href="/admin") admin
+
+  script(type="text/javascript", src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.js")
+  script(type="text/javascript", src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js")
+  if page.posts && page.number
+    script(type="text/javascript")!= js
+  

@@ -1,0 +1,131 @@
+<!DOCTYPE html><head><title>Tumble Theme</title><link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" /><style>
+html,body{
+  background:#fcfcfc;
+}
+body {
+  font-family: sans-serif;
+  line-height: 1.4;
+  padding: 0;
+  width:100%;
+  margin: 0 auto;
+}
+.section{
+  margin:1rem;
+}
+.grid {
+  margin:0 auto;
+}
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* reveal grid after images loaded */
+.grid.are-images-unloaded {
+  opacity: 0;
+}
+
+.grid__item,
+.grid__col-sizer {
+  width: 300px;
+}
+
+/* hide by default */
+.grid.are-images-unloaded .image-grid__item {
+  opacity: 0;
+}
+
+.grid__item {
+  margin-bottom: 20px;
+  float: left;
+}
+.grid__item img {
+  display: block;
+  width: 100%;
+}
+
+
+.page-load-status {
+  display: none; /* hidden by default */
+  padding-top: 20px;
+  border-top: 1px solid #DDD;
+  text-align: center;
+  color: #777;
+}
+.link-footer{
+  display:block;
+  padding-top:20px;
+  color: #777;
+}
+.link-footer>*{
+  margin:1em;
+}
+
+.btn.view-more-button{
+  display:block;
+  margin:0 auto;
+  padding-left:100px;
+  padding-right:100px;
+}
+.single-post{
+  margin:0 auto;
+  display:block;
+  max-width:800px;
+}
+.single-post .asset{
+  display:block;
+  margin:0 auto;
+}
+body .card{
+  box-shadow: 0 .25rem 1rem rgba(48,55,66,.15);
+  border:0;
+}
+
+.grid .card .card-body{
+  max-height:600px;
+  overflow:hidden;
+}
+
+.asset *{
+  object-fit:cover;
+  max-width:100%;
+}
+
+</style><noscript><style>  .grid.are-images-unloaded {opacity: 1 !important;}</style></noscript></head><body><div class="section"><h1 class="h1 text-center"><a href="/"><span>Tumble Theme</span></a></h1></div><div class="section"><div class="card single-post"><div class="card-body"><div class="h1">A Post!</div><div><a class="asset"><img src="../../placeholders/asset-2.jpg"></img></a></div><div><a class="asset"><img src="../../placeholders/asset-3.jpg"></img></a></div><div><a class="asset"><img src="../../placeholders/asset-1.jpg"></img></a></div><br/><div>
+<p>The bird is a featured, non-inlined asset.</p>
+<p>The bokeh circles are a non-featured, non-inlined asset.</p>
+<p>Themes can handle asset rendering logic as they wish.</p>
+<p>This image is directly in the post content:</p>
+<a class="asset"><img src="../../placeholders/asset-3.jpg"></img></a>
+<p>Now for some HTML.</p>
+<h1>HTML Ipsum Presents</h1>
+<p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+<h2>Header Level 2</h2>
+<ol>
+   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+   <li>Aliquam tincidunt mauris eu risus.</li>
+</ol>
+<blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+
+<h1>Header Level 1</h1>
+<h2>Header Level 2</h2>
+<h3>Header Level 3</h3>
+<h4>Header Level 4</h4>
+<h5>Header Level 5</h5>
+<h6>Header Level 6</h6>
+
+<ul>
+   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+   <li>Aliquam tincidunt mauris eu risus.</li>
+</ul>
+<p>Try some <code>code</code> on for size!</p>
+<pre><code>#header h1 a {
+  display: block;
+  width: 300px;
+  height: 80px;
+}
+</code></pre></div></div><div class="card-footer"> <span class="text-gray">tags:&nbsp</span><div class="chip">math</div><div class="chip">development</div></div></div></div><div class="link-footer section pagination"><div class="btn-group" style="margin:0 auto;"><a class="btn" href="/">Home</a><a class="btn pagination__next" href="#">Next</a></div></div><br/><div class="section">Everything &#169;&nbsp;<span>2019</span>&nbsp;<span>Your Name</span><br/><a href="/admin">admin</a></div><script type="text/javascript" src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.js"></script><script type="text/javascript" src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script></body>

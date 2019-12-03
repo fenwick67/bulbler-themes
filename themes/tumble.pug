@@ -105,10 +105,10 @@
     columnWidth: '.grid__col-sizer',
     fitWidth: true,
     stagger: 20,
-    gutter:20,
+    gutter:20, 
     // nicer reveal transition
     visibleStyle: { transform: 'translateY(0)', opacity: 1 },
-    hiddenStyle: { transform: 'translateY(100px)', opacity: 0 },
+    hiddenStyle: {  transformOrigin: 'center', transform: 'translateY(-100px) rotate(5deg)', opacity: 0 },
   });
 
 
@@ -154,13 +154,15 @@ body
         | .
     if page.number && page.number > 1
       h5.h5.text-center
-        span you're on page&nbsp;
+        span You're on page&nbsp;
         b= page.number
+        span &nbsp;/&nbsp;
+        b= site.pageCount
         if page.tag
           span &nbsp;in posts tagged&nbsp;
           b= page.tag
-        span ,&nbsp;
-        a(href=page.tag?linkTo('tag',page.tag):'/') go to page 1?
+        span .&nbsp;
+        a(href=page.tag?linkTo('tag',page.tag):'/') Back to start
   
   if page.posts && page.number
 
@@ -221,7 +223,7 @@ body
         .card-body
           if page.posts[0].title
             .h1= page.posts[0].title
-          each asset in page.posts[0].assets
+          each asset in page.posts[0].assets.filter(a=>!a.inline)
             div!= asset.widget
           if page.posts[0].assets && page.posts[0].caption
             br
@@ -243,7 +245,7 @@ body
   .link-footer.section.pagination
     .btn-group(style="margin:0 auto;")
       
-      a.btn(href="/") Home
+      a.btn(href=linkTo('root')) Home
       if page.links
         if page.links.previousPage
           a.btn.pagination__previous(href=page.links.previousPage) Previous
@@ -256,7 +258,7 @@ body
     | &nbsp;
     span= site.authorName
     br
-    a(href="/admin") admin
+    a(href=linkTo('admin')) admin
 
   script(type="text/javascript", src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.js")
   script(type="text/javascript", src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js")

@@ -123,7 +123,7 @@ body .card{
 }
 </code></pre></p></div></div><div class="grid__item card"><a class="card-image" href="#"><a class="asset"><img src="../../placeholders/asset-2.jpg"></img></a></a><div class="card-header"><div class="card-title h4">Another post!</div></div><div class="card-body"><p><p>These are some photos!</p></p></div><div class="card-footer"> <span class="text-gray">tags:&nbsp</span><div class="chip">math</div><div class="chip">development</div></div></div><div class="grid__item card"><a class="card-image" href="#"><a class="asset"><img src="../../placeholders/asset-2.jpg"></img></a></a><div class="card-header"><div class="card-title h4">Another post!</div></div><div class="card-body"><p><p>These are some photos!</p></p></div><div class="card-footer"> <span class="text-gray">tags:&nbsp</span><div class="chip">math</div><div class="chip">development</div></div></div><div class="grid__item card"><a class="card-image" href="#"><a class="asset"><img src="../../placeholders/asset-2.jpg"></img></a></a><div class="card-header"><div class="card-title h4">Another post!</div></div><div class="card-body"><p><p>These are some photos!</p></p></div><div class="card-footer"> <span class="text-gray">tags:&nbsp</span><div class="chip">math</div><div class="chip">development</div></div></div><div class="grid__item card"><a class="card-image" href="#"><a class="asset"><img src="../../placeholders/asset-2.jpg"></img></a></a><div class="card-header"><div class="card-title h4">Another post!</div></div><div class="card-body"><p><p>These are some photos!</p></p></div><div class="card-footer"> <span class="text-gray">tags:&nbsp</span><div class="chip">math</div><div class="chip">development</div></div></div></div><div class="section"><div class="btn-group btn-group-block"><button class="view-more-button btn btn-lg">Load More</button></div></div><div class="page-load-status"><div class="loader-ellips infinite-scroll-request">&hellip;</div>
 <p class="infinite-scroll-last">End of content</p>
-<p class="infinite-scroll-error">No more pages to load</p></div><div class="link-footer section pagination"><div class="btn-group" style="margin:0 auto;"><a class="btn" href="/">Home</a><a class="btn pagination__next" href="#">Next</a></div></div><br/><div class="section">Everything &#169;&nbsp;<span>2019</span>&nbsp;<span>Your Name</span><br/><a href="/admin">admin</a></div><script type="text/javascript" src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.js"></script><script type="text/javascript" src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script><script type="text/javascript">
+<p class="infinite-scroll-error">No more pages to load</p></div><div class="link-footer section pagination"><div class="btn-group" style="margin:0 auto;"><a class="btn" href="#">Home</a><a class="btn pagination__next" href="#">Next</a></div></div><br/><div class="section">Everything &#169;&nbsp;<span>2019</span>&nbsp;<span>Your Name</span><br/><a href="#">admin</a></div><script type="text/javascript" src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.js"></script><script type="text/javascript" src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script><script type="text/javascript">
 
 var grid = document.querySelector('.grid');
 
@@ -132,10 +132,10 @@ var msnry = new Masonry( grid, {
   columnWidth: '.grid__col-sizer',
   fitWidth: true,
   stagger: 20,
-  gutter:20,
+  gutter:20, 
   // nicer reveal transition
   visibleStyle: { transform: 'translateY(0)', opacity: 1 },
-  hiddenStyle: { transform: 'translateY(100px)', opacity: 0 },
+  hiddenStyle: {  transformOrigin: 'center', transform: 'translateY(-100px) rotate(5deg)', opacity: 0 },
 });
 
 

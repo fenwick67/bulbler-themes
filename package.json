@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ecstatic": "^3.0.0",
+    "ecstatic": "^4.1.4",
     "fs-extra": "^4.0.2",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.1",
